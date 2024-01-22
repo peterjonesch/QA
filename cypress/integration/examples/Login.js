@@ -7,7 +7,7 @@ describe('Test Login Form of Calendar', () => {
 
     beforeEach(() => {
 
-        // Visit the page or load the forms
+        // Visit the page or load the formss
 
         cy.visit('https://qa.communityhubqa.cloud/calendar/');
         cy.get('a[href="#!"]').contains('Sign in').click();
