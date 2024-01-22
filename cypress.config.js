@@ -17,7 +17,7 @@ module.exports = defineConfig({
     specPattern:'cypress/integration/examples/*.js',
    
   },
-  projectId: "a3ti7u",
+  projectId: "kzy11p",
   
   
  
