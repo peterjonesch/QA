@@ -103,7 +103,10 @@ describe('Test Event Creation on QA Calendar', () => {
       //Approve post
       cy.loginjobs('qa.communityhub@gmail.com','Oberlin123!');
       cy.wait(10000);
+      cy.visit('https://qa.communityhubqa.cloud/calendar/jobs');
+      cy.wait(10000);
       cy.get('#unapproved-tab').click();
+  
       let count=0;
       let number=0;
       cy.wait(6000);
@@ -124,7 +127,7 @@ describe('Test Event Creation on QA Calendar', () => {
       
   
   
-        // delete the announcement to cleanup
+        // delete the job to cleanup
      
   
        cy.get('#main-feed-tab').click();
