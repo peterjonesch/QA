@@ -67,6 +67,8 @@ describe('Calendar dates testing', () => {
 
     })
 
+
+
     it('To submit an event with overlapping dates', () => {
 
        
@@ -106,7 +108,7 @@ describe('Calendar dates testing', () => {
         //select end date
         cy.get('input[placeholder="End Date"]').click();              
       
-        cy.get('td[class="rdtDay rdtToday"]+td+td').eq(0).click();
+        cy.get('td[class="rdtDay rdtToday"]+td').eq(0).click();
         cy.get('.rdtTimeToggle').eq(1).click();
         cy.get('div[class="rdtCounters"] > div:nth-child(1) >span').eq(0).click();
 
@@ -262,6 +264,7 @@ describe('Calendar dates testing', () => {
         cy.get('label[for="online"]').click(); 
     
         //add url
+        cy.wait(2000);
         cy.get('input[data-cy="location-online"]').type('https://www.google.com/');
          
          // fill in description
