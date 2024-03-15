@@ -2,12 +2,12 @@
 
 describe('Calendar dates testing', () => {
 
-   /* beforeEach("Got the new post route", () => {
+    beforeEach("Got the new post route", () => {
 
         cy.visit('https://qa.communityhubqa.cloud/calendar/post/new');
 
 
-    });*/
+    });
 
     const testData = {
         email: 'qa.communityhub@gmail.com',
