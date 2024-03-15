@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --record --parallel --key 7d666765-cf02-4135-9be5-a6919420208b" 
+    "test": "cypress run --record --parallel --key 7d666765-cf02-4135-9be5-a6919420208b"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,6 @@
     "cypress": "^13.5.1"
   },
   "devDependencies": {
-    "cypress-iframe": "^1.0.1"
+    "cypress-iframe": "^1.0.1" 
   }
 }
