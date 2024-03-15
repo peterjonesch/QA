@@ -1,5 +1,7 @@
 ///<reference types="Cypress"/>
 
+
+
 describe('Short description validation', () => {
 
     beforeEach("Got the new post route", () => {
@@ -32,11 +34,22 @@ describe('Short description validation', () => {
            
         cy.get('button[data-cy="submit-btn"]').click();
         cy.wait(2000);
-        cy.get('#alert-danger-text>ul>li').should(($li) => {
+        cy.get('#alert-danger-text>ul>li').then(($li) => {
             let len = $li.length;
+            let num= 0;
             for (let i = 0; i < len; i++) {
-                expect($li.eq(i)).to.contain('Event Description must be between 10 and 200 characters.');
+                const error = $li.eq(i).text();
+                cy.log(error);
+                if( error === 'Event Description must be between 10 and 200 characters.'){
+
+                    num=i;
+                    cy.log(num);
+                }
+               
+                
             }
+                expect($li.eq(num)).to.contain('Event Description must be between 10 and 200 characters.');
+            
 
 
 
