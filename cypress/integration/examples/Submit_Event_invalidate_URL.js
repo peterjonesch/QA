@@ -27,17 +27,18 @@ describe("Testing URLs for validity", () => {
     it('Adding urls', () => {
 
         for (let i = 0; i < testdata.length; i++) {
-            cy.get('input[data-cy="website"]').type(testdata[i]);
+            cy.get('p').contains('3. Event Location').click();
+            cy.get('*[data-cy="location-options-online"]').click();
+            cy.get('#url_link').type(testdata[i]);
 
-            cy.get('label[for="online"]').click();
+           
             cy.wait(2000);
-            cy.get('input[data-cy="location-online"]').type(testdata[i]);
-            cy.wait(2000);
-            cy.get('button[data-cy="submit-btn"]').click();
+
+            cy.get('button[data-cy="next-btn"]').eq(2).click();
 
             //verification of error message
 
-            cy.get("#alert-danger-text>ul>li").eq(1).contains('Website URL is invalid.');
+            cy.get('*[data-cy="urlLink"]>div+p').should('have.text','Invalid url link');
 
             //refreshpage
             cy.reload();

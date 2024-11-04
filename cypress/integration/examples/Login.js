@@ -3,7 +3,7 @@
 
 
 describe('Test Login Form of Calendar', () => {
-    
+
 
     beforeEach(() => {
 
@@ -11,30 +11,32 @@ describe('Test Login Form of Calendar', () => {
 
         cy.visit('https://qa.communityhubqa.cloud/calendar/');
         cy.get('a[href="#!"]').contains('Sign in').click();
-            
-       
+
+
     });
 
     it('Handles successful login', () => {
-       
-         
-            cy.origin('https://communityhub-auth.us.auth0.com', () =>{
+        const validEmail = 'qa.communityhub@gmail.com';
+        
 
-                const validEmail = 'qa.communityhub@gmail.com';
-                const validPassword = 'Oberlin123!';
-        // Fill out the email input with a valid email
-        cy.get('#username').click().type(validEmail);
+        cy.origin('https://communityhub-auth.us.auth0.com', () => {
 
-        // Fill out the password input with a valid password
-        cy.get('#password').click().type(validPassword);
+            const validEmail = 'qa.communityhub@gmail.com';
+            const validPassword = 'Oberlin123!';
+            // Fill out the email input with a valid email
+            cy.get('#username').click().type(validEmail);
 
-        // Submit the form
-        cy.get('button[ data-action-button-primary="true"]').click();
-       
-       
-   
-    })
-  
+            // Fill out the password input with a valid password
+            cy.get('#password').click().type(validPassword);
+
+            // Submit the form
+            cy.get('button[ data-action-button-primary="true"]').click();
+            cy.wait(2000);
+            
+
+
+        })
+        cy.get('.authenticated-user-section>div').should('contain', validEmail);
 
     });
 
@@ -50,7 +52,7 @@ describe('Test Login Form of Calendar', () => {
         // Submit the form
         cy.get('button[ data-action-button-primary="true"]').click();
 
-       
+
         cy.get('#error-element-password')
             .should('be.visible')
             .should('contain', 'Wrong email or password');

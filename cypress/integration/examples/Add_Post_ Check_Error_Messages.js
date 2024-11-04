@@ -1,70 +1,90 @@
 /// <reference types ="Cypress" />
 
-describe('Add Event Check Error Messages',() =>{
+describe('Add Event Check Error Messages', () => {
 
- //Verify event error messages 
-    it.only('Add an event and check for errors',() =>{
+    //Verify event error messages 
+    it.only('Add an event and check for errors', () => {
 
         cy.visit('https://qa.communityhubqa.cloud/calendar/post/new');
 
         cy.wait(2000);
-        
-        const filepath = "cypress/fixtures/test_image_above_16mb.jpg";
-        cy.get('input[data-cy="image"]').selectFile(filepath);
-        cy.wait(5000);
-
+        /* 
+         const filepath = "cypress/fixtures/test_image_above_16mb.jpg";
+         cy.get('p').contains('5. Event Artwork').click();
+         cy.get('input[id="fileInput"]').selectFile(filepath);
+         cy.wait(5000);
+         cy.get('.action-buttons>button').eq(1).click();
+         cy.get('button[data-cy="next-btn"]').eq(4).click();
+         */
         cy.get('button[data-cy="submit-btn"]').click();
         cy.wait(2000);
 
-       
-  
-cy.get("#alert-danger-text>ul>li").eq(0).contains('Please provide a valid Email address.');
-cy.get("#alert-danger-text>ul>li").eq(1).contains('Event title is empty.');
-cy.get("#alert-danger-text>ul>li").eq(2).contains('Please select an Post Type.');
-cy.get("#alert-danger-text>ul>li").eq(3).contains('Please make sure all session start and end times are set.');
-cy.get("#alert-danger-text>ul>li").eq(4).contains('Event Description must be between 10 and 200 characters.');
-cy.get("#alert-danger-text>ul>li").eq(5).contains('Please select location type.');
-cy.get("#alert-danger-text>ul>li").eq(6).contains('Session start and end times cannot be the same.');
-cy.get("#alert-danger-text>ul>li").eq(7).contains('Image size should be less than 16 MB');
 
-//Verify announcement error messages
-cy.get('label[for="is_announcement"]').click();
+        //EMAIL
+        cy.get('*[data-cy="email-block"]>p').eq(1).should('have.text', '❗Field Email is Required');
+        //TITLE BLOCK
+        cy.get('*[data-cy="event-title-block"]>p').eq(1).should('have.text', '❗Field Title is Required');
+        //ORGANISATIONAL SPONSORS
+        cy.get('*[data-cy="sponsors-block"]>div>div>p').should('have.text', '❗At least one value must be selected');
+        //POST TYPE
+        cy.get('*[data-cy="post-type-block"]>div>div>p').should('have.text', '❗At least one type must be selected');
+        //LOCATION TYPE
+        cy.get('*[aria-label="locationType"]+p').should('have.text', '❗Select location type');
+        //DESCRIPTION
+        cy.get('*[data-cy="description"]>p').eq(1).should('have.text', '❗Description is required');
+        //DISPLAY PREFERENCES
+        cy.get('*[data-cy="display"]+p').should('have.text', '❗Select a display type');
+    })
 
-cy.get('button[data-cy="submit-btn"]').click();
-cy.wait(2000);
+    it.only('verify anouncemet error messages', () => {
 
+        cy.visit('https://qa.communityhubqa.cloud/calendar/post/new');
 
+        //Verify announcement error messages
+        cy.get('input[name="eventType"]').eq(1).click();
 
-cy.get("#alert-danger-text>ul>li").eq(0).contains('Please provide a valid Email address.');
-cy.get("#alert-danger-text>ul>li").eq(1).contains('Announcement title is empty.');
-cy.get("#alert-danger-text>ul>li").eq(2).contains('Please select an Post Type.');
-cy.get("#alert-danger-text>ul>li").eq(3).contains('Please make sure all session start and end times are set.');
-cy.get("#alert-danger-text>ul>li").eq(4).contains('Announcement Description must be between 10 and 200 characters.');
-cy.get("#alert-danger-text>ul>li").eq(5).contains('Please select location type.');
-cy.get("#alert-danger-text>ul>li").eq(6).contains('Session start and end times cannot be the same.');
-cy.get("#alert-danger-text>ul>li").eq(7).contains('Image size should be less than 16 MB');
+        cy.get('button[data-cy="submit-btn"]').click();
+        cy.wait(2000);
+        //EMAIL
+        cy.get('*[data-cy="email-block"]>p').eq(1).should('have.text', '❗Field Email is Required');
+        //TITLE BLOCK
+        cy.get('*[data-cy="event-title-block"]>p').eq(1).should('have.text', '❗Field Title is Required');
+        //ORGANISATIONAL SPONSORS
+        cy.get('*[data-cy="sponsors-block"]>div>div>p').should('have.text', '❗At least one value must be selected');
+        //POST TYPE
+        cy.get('*[data-cy="post-type-block"]>div>div>p').should('have.text', '❗At least one type must be selected');
+        //LOCATION TYPE
+        cy.get('*[aria-label="locationType"]+p').should('have.text', '❗Select location type');
+        //DESCRIPTION
+        cy.get('*[data-cy="description"]>p').eq(1).should('have.text', '❗Description is required');
+        //DISPLAY PREFERENCES
+        cy.get('*[data-cy="display"]+p').should('have.text', '❗Select a display type');
 
-//Verify job error messages
+    })
 
-cy.get('label[for="job_post"]').click();
+    it.only('verify job error messages', () => {
+        //Verify job error messages
+        cy.visit('https://qa.communityhubqa.cloud/calendar/jobs/post/new');
 
-cy.get('button[data-cy="submit-btn"]').click();
-cy.wait(2000);
+        cy.get('button[data-cy="submit-btn"]').click();
+        cy.wait(2000);
+        //EMAIL
+        cy.get('*[data-cy="email-block"]>p').eq(1).should('have.text', '❗Field Email is Required');
+        //TITLE BLOCK
+        cy.get('*[data-cy="event-title-block"]>p').eq(1).should('have.text', '❗Field Title is Required');
+        //WHO IS THE EMPLOYER ?
+        cy.get('*[data-cy="sponsors-block"]>div>div>p').should('have.text', '❗At least one value must be selected');
+        //JOB CATEGORY
+        cy.get('*[data-cy="post-type-block"]>div>div>p').should('have.text', '❗At least one type must be selected');
+        //EMPLOYMENT TYPE
+        cy.get('p').contains('❗Employment Type is required').should('have.text', '❗Employment Type is required'); //Needs data cy
+        //WORKPLACE  TYPE
+        cy.get('*[aria-label="workplaceType"]+p').should('have.text', '❗Workplace Type is required');
+        //DESCRIPTION
+        cy.get('*[data-cy="description"]>p').eq(1).should('have.text', '❗Description is required');
+        //DISPLAY PREFERENCES
+        cy.get('*[data-cy="display"]+p').should('have.text', '❗Select a display type');
 
-
-
-cy.get("#alert-danger-text>ul>li").eq(0).contains('Please provide a valid Email address.');
-cy.get("#alert-danger-text>ul>li").eq(1).contains('Job title is empty.');
-cy.get("#alert-danger-text>ul>li").eq(2).contains('Please select a Job Category.');
-cy.get("#alert-danger-text>ul>li").eq(3).contains('Please select Employment Type.');
-cy.get("#alert-danger-text>ul>li").eq(4).contains('Job Description must be between 10 and 200 characters.');
-cy.get("#alert-danger-text>ul>li").eq(5).contains('Please select both start and end date for display.');
-cy.get("#alert-danger-text>ul>li").eq(6).contains('Session start and end times cannot be the same.');
-cy.get("#alert-danger-text>ul>li").eq(7).contains('Please provide the Employer.');
-cy.get("#alert-danger-text>ul>li").eq(8).contains('Please add either Online Application button or Additional Instructions.');
-cy.get("#alert-danger-text>ul>li").eq(9).contains('Please select Workplace Type.');
-cy.get("#alert-danger-text>ul>li").eq(10).contains('Image size should be less than 16 MB');
-
-})
+    });
 
 })

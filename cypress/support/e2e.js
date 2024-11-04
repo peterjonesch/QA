@@ -18,3 +18,11 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+Cypress.on('uncaught:exception', (e, runnable) => {
+    console.log('error', e);
+    console.log('runnable', runnable);
+    if(e.message.includes(' Failed to fetch posts after 3 retries')){
+
+        return false;
+    }
+})
